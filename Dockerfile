@@ -1,20 +1,18 @@
 # 使用基础镜像
-FROM ubuntu:latest
+FROM docker.io/library/ubuntu:latest
 
 # 设置工作目录
-WORKDIR /app
+WORKDIR /
 
-# 安装 curl 和其他必要的工具
-RUN apt-get update && apt-get install -y curl
+# 安装 git 和 docker-compose
+RUN apt-get update && apt-get install -y git && apt-get install -y docker-compose
 
-# 复制 quick-install.sh 到容器中
-COPY quick-install.sh /app
+# 克隆仓库到本地
+RUN git clone --depth=1 https://github.com/xyhelper/chatgpt-mirror-server-deploy.git chatgpt-mirror
 
-# 执行脚本并赋予执行权限
-RUN chmod +x quick-install.sh && ./quick-install.sh
+# 进入目录
+WORKDIR /chatgpt-mirror
 
-# 如果你想要在构建镜像时就执行脚本，可以使用以下方式（不建议在 Dockerfile 中直接使用 curl | bash，因为安全性问题）
-# RUN curl -sSfL https://raw.githubusercontent.com/xyhelper/chatgpt-mirror-server-deploy/master/quick-install.sh | bash
-
-# 定义容器启动时执行的命令（可选）
-CMD ["bash"]
+# 使用 Docker Compose 拉取镜像并启动容器
+RUN docker-compose pull
+RUN docker-compose up -d
