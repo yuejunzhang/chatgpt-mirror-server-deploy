@@ -14,9 +14,9 @@ RUN git clone --depth=1 https://github.com/xyhelper/chatgpt-mirror-server-deploy
 WORKDIR /app/chatgpt-mirror
 
 # 拉取 Docker 镜像并启动服务
-# RUN docker compose pull
-# RUN docker compose up -d
-RUN docker-compose pull && docker-compose up -d
+RUN docker compose pull
+RUN docker compose up -d
+
 # 打开端口
 EXPOSE 80
 
