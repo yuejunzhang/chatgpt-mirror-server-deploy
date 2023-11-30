@@ -2,7 +2,7 @@
 FROM docker:latest
 
 # 设置工作目录
-WORKDIR /app
+WORKDIR /
 
 # 安装 Git
 RUN apk update && apk add git
@@ -11,7 +11,7 @@ RUN apk update && apk add git
 RUN git clone --depth=1 https://github.com/xyhelper/chatgpt-mirror-server-deploy.git chatgpt-mirror
 
 # 进入目录
-WORKDIR /app/chatgpt-mirror
+WORKDIR /chatgpt-mirror
 
 # 拉取 Docker 镜像并启动服务
 RUN docker compose pull
