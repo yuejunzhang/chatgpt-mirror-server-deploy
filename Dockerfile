@@ -2,7 +2,7 @@
 FROM docker.io/library/ubuntu:latest
 
 # 设置工作目录
-WORKDIR /app
+WORKDIR /
 
 # 安装 git 和 docker-compose
 RUN apt-get update && apt-get install -y docker-compose
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y docker-compose
 RUN git clone --depth=1 https://github.com/xyhelper/chatgpt-mirror-server-deploy.git chatgpt-mirror
 
 # 进入目录
-WORKDIR /app/chatgpt-mirror
+WORKDIR /chatgpt-mirror
 
 # 使用 Docker Compose 拉取镜像并启动容器
 RUN docker-compose pull
